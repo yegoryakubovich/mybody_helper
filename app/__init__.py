@@ -16,9 +16,12 @@
 
 
 import logging
+from asyncio import run
+
+from app.script import run_script
 
 
 def create_app():
     logging.basicConfig(level=logging.DEBUG)
     logging.info(msg='Application starting')
-
+    run(run_script())

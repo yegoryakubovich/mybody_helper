@@ -21,3 +21,8 @@ from configparser import ConfigParser
 config = ConfigParser()
 config.read('config.ini')
 TOKEN = config['config']['token']
+USERNAME = config['config']['username']
+PASSWORD = config['config']['password']
+FIRSTNAME = config['config']['firstname']
+LASTNAME = config['config']['lastname']
+SURNAME = config['config']['surname']
