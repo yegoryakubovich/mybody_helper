@@ -16,9 +16,9 @@
 
 
 from app.script.create_main_models import create_main_models
-from app.script.create_roles import create_roles
+from app.script.create_other import create_other
 
 
 async def run_script():
     await create_main_models()
-    await create_roles()
+    await create_other()

@@ -1,3 +1,4 @@
-mybody_api_client==0.3.12
+mybody_api_client==0.3.15
 gspread
 oauth2client
+addict

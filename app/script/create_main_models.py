@@ -23,21 +23,21 @@ from config import USERNAME, PASSWORD, FIRSTNAME, LASTNAME, SURNAME
 
 async def create_main_models():
     languages = await mybody_api_client.client.language.get_list()
-    if not len(languages):
-        mybody_api_client.admin.language.create(id_str='eng', name='English')
+    if not languages:
+        await mybody_api_client.admin.language.create(id_str='eng', name='English')
 
     timezones = await mybody_api_client.client.timezone.get_list()
-    if not len(timezones):
-        mybody_api_client.admin.timezone.create(id_str='utc', deviation=0)
+    if not timezones:
+        await mybody_api_client.admin.timezone.create(id_str='utc', deviation=0)
 
     currencies = await mybody_api_client.client.currency.get_list()
-    if not len(currencies):
-        mybody_api_client.admin.currency.create(id_str='usd')
+    if not currencies:
+        await mybody_api_client.admin.currency.create(id_str='usd')
 
     countries = await mybody_api_client.client.country.get_list()
-    if not len(countries):
-        mybody_api_client.admin.country.create(
-            id_str='usd',
+    if not countries:
+        await mybody_api_client.admin.country.create(
+            id_str='usa',
             name='United States',
             language='eng',
             timezone='utc',
@@ -57,5 +57,6 @@ async def create_main_models():
             timezone='utc',
             currency='usd',
         )
-    except ApiException:
+    except ApiException as e:
+        print(e)
         pass

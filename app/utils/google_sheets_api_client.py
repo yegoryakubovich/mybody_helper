@@ -16,6 +16,7 @@
 
 
 import gspread
+from addict import Dict
 from gspread import Spreadsheet, Worksheet
 from oauth2client.service_account import ServiceAccountCredentials
 
@@ -38,26 +39,32 @@ class GoogleSheetsApiClient:
     async def get_tables(self) -> list[Spreadsheet]:
         return self.client.openall()
 
-    async def get_table_by_name(self, name) -> Spreadsheet:
+    async def get_table_by_name(self, name: str) -> Spreadsheet:
         tables = await self.get_tables()
         for table in tables:
-            if table.title == name:
+            if table.title.lower() == name.lower():
                 return table
         raise Exception('Required table not found')
 
     @staticmethod
-    async def get_sheets(table: Spreadsheet) -> list[str]:
-        return [sheet.title for sheet in table.worksheets()]
+    async def get_sheet_by_table_and_name(table: Spreadsheet, name: str) -> Worksheet:
+        worksheets = table.worksheets()
+        for worksheet in worksheets:
+            if worksheet.title.lower() == name.lower():
+                return worksheet
+        raise Exception('Required sheet not found')
 
     @staticmethod
-    async def get_columns_by_name(column_name, worksheet: Worksheet):
+    async def get_columns_by_name(worksheet: Worksheet, column_name: str):
         column_index = worksheet.row_values(1).index(column_name) + 1
         return worksheet.col_values(column_index)
 
     @staticmethod
     async def get_rows(sheet: Worksheet):
-        data = sheet.get_all_values()
-        return data
+        data = {
+            'rows': sheet.get_all_records(),
+        }
+        return Dict(**data).rows
 
 
 google_sheets_api_client = GoogleSheetsApiClient(

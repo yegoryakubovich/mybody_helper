@@ -17,7 +17,7 @@
 
 from mybody_api_client import MyBodyApiClient
 
-from config import TOKEN
+from config import TOKEN, IS_TEST
 
 
-mybody_api_client = MyBodyApiClient(token=TOKEN)
+mybody_api_client = MyBodyApiClient(token=TOKEN, is_test=IS_TEST)

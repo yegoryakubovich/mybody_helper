@@ -27,3 +27,4 @@ FIRSTNAME = config['config']['firstname']
 LASTNAME = config['config']['lastname']
 SURNAME = config['config']['surname']
 TABLE_NAME = config['config']['table_name']
+IS_TEST = False
