@@ -16,8 +16,10 @@
 
 
 from .mybody_api_client import mybody_api_client
+from .google_sheets_api_client import google_sheets_api_client
 
 
 __all__ = [
     'mybody_api_client',
+    'google_sheets_api_client',
 ]

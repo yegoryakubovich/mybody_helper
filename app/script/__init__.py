@@ -15,15 +15,10 @@
 #
 
 
-from configparser import ConfigParser
+from app.script.create_main_models import create_main_models
+from app.script.create_roles import create_roles
 
 
-config = ConfigParser()
-config.read('config.ini')
-TOKEN = config['config']['token']
-USERNAME = config['config']['username']
-PASSWORD = config['config']['password']
-FIRSTNAME = config['config']['firstname']
-LASTNAME = config['config']['lastname']
-SURNAME = config['config']['surname']
-TABLE_NAME = config['config']['table_name']
+async def run_script():
+    await create_main_models()
+    await create_roles()

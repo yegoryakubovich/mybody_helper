@@ -15,15 +15,11 @@
 #
 
 
-from configparser import ConfigParser
+from app.utils import google_sheets_api_client
+from config import TABLE_NAME
 
 
-config = ConfigParser()
-config.read('config.ini')
-TOKEN = config['config']['token']
-USERNAME = config['config']['username']
-PASSWORD = config['config']['password']
-FIRSTNAME = config['config']['firstname']
-LASTNAME = config['config']['lastname']
-SURNAME = config['config']['surname']
-TABLE_NAME = config['config']['table_name']
+async def create_roles():
+    table = await google_sheets_api_client.get_table_by_name(name=TABLE_NAME)
+
+

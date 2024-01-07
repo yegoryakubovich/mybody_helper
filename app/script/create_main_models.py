@@ -15,25 +15,27 @@
 #
 
 
+from mybody_api_client.utils.base_section import ApiException
+
 from app.utils import mybody_api_client
 from config import USERNAME, PASSWORD, FIRSTNAME, LASTNAME, SURNAME
 
 
-async def run_script():
+async def create_main_models():
     languages = await mybody_api_client.client.language.get_list()
-    if not len(languages.languages):
+    if not len(languages):
         mybody_api_client.admin.language.create(id_str='eng', name='English')
 
     timezones = await mybody_api_client.client.timezone.get_list()
-    if not len(timezones.timezones):
+    if not len(timezones):
         mybody_api_client.admin.timezone.create(id_str='utc', deviation=0)
 
     currencies = await mybody_api_client.client.currency.get_list()
-    if not len(currencies.currencies):
+    if not len(currencies):
         mybody_api_client.admin.currency.create(id_str='usd')
 
     countries = await mybody_api_client.client.country.get_list()
-    if not len(countries.countries):
+    if not len(countries):
         mybody_api_client.admin.country.create(
             id_str='usd',
             name='United States',
@@ -42,8 +44,8 @@ async def run_script():
             currency='usd',
         )
 
-    have_account = await mybody_api_client.client.account.check_username(username=USERNAME)
-    if have_account['state'] == 'successful':
+    try:
+        await mybody_api_client.client.account.check_username(username=USERNAME)
         await mybody_api_client.client.account.create(
             username=USERNAME,
             password=PASSWORD,
@@ -55,3 +57,5 @@ async def run_script():
             timezone='utc',
             currency='usd',
         )
+    except ApiException:
+        pass

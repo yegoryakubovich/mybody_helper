@@ -1,2 +1,8 @@
 [config]
 token = 00000000:XXXXXXXX
+username = XXXXXXXX
+password = XXXXXXXX
+firstname = XXXXXXXX
+lastname = XXXXXXXX
+surname = XXXXXXXX
+table_name = XXXXXXXX
