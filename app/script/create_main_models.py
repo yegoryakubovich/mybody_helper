@@ -57,6 +57,5 @@ async def create_main_models():
             timezone='utc',
             currency='usd',
         )
-    except ApiException as e:
-        print(e)
+    except ApiException:
         pass
